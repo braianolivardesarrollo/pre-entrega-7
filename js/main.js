@@ -120,7 +120,6 @@ function imprimirCarritoEnHTML() {
 
 imprimirElementosEnHTML(productos);
 
-// Lógica para el input para filtrar productos
 const formulario = document.getElementById("formulario");
 
 formulario.addEventListener("submit", tomarDatosForm);
@@ -148,11 +147,11 @@ function obtenerProductoDelForm() {
 
     const inputImagen = document.getElementById("input-imagen").value;
 
-    const inputDescripcion = document.getElementById(input-descripcion).value;
+    const inputDescripcion = document.getElementById("input-descripcion").value;
 
-    productos.push({nombre: inputNombre, precio: inputPrecio, imagen: inputImagen, descripcion: inputDescripcion});
+    productos.push({id: productos.length +1, nombre: inputNombre, precio: inputPrecio, imagen: inputImagen, descripcion: inputDescripcion});
 
-    imprimirElementosEnHTML();
+    imprimirElementosEnHTML(productos);
   });
 }
 
