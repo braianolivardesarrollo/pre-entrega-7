@@ -7,59 +7,59 @@
 const productos = [
   {
     id: 1,
-    nombre: "pinza",
+    nombre: "Pinza",
     descripcion: "pinza de fuerza, marca knipex",
     precio: 500,
     imagen: "./img/pinza.webp",
   },
   {
     id: 2,
-    nombre: "destornillador plano",
+    nombre: "Destornillador Plano",
     descripcion: "destornillador plano 20mm, knipex",
     precio: 250,
     imagen: "./img/destornilladorPlano.webp",
   },
   {
     id: 3,
-    nombre: "alicate",
+    nombre: "Alicate",
     descripcion: "Alicate corte diagonal, knipex",
     precio: 600,
     imagen: "./img/alicateCorteDiag.webp",
   },
   {
     id: 4,
-    nombre: "destornillador philips",
+    nombre: "Destornillador Philips",
     descripcion: "destornillador punta philips, knipex",
     precio: 250,
     imagen: "./img/destornilladorPhilips.webp",
   },
   {
     id: 5,
-    nombre: "llaves allen milimetricas",
+    nombre: "Llaves Allen ",
     descripcion: "juego de llaves allen milimetricas 1mm a 13mm, Bremen",
     precio: 850,
     imagen: "./img/llavesAllen.webp",
   },
   {
     id: 6,
-    nombre: "Monitor",
-    descripcion: "Monitor Full HD de 24 pulgadas",
-    precio: 300,
-    imagen: "🖥️",
+    nombre: "Soldador ",
+    descripcion: "soldador de estaño 70w, Total",
+    precio: 1200,
+    imagen: "./img/soldador.webp",
   },
   {
     id: 7,
-    nombre: "Cámara",
-    descripcion: "Cámara digital profesional",
-    precio: 900,
-    imagen: "📷",
+    nombre: "Multimetro",
+    descripcion: "multimetro digital Mod.117, Fluke",
+    precio: 5000,
+    imagen: "./img/multimetroDigital.webp",
   },
   {
     id: 8,
-    nombre: "Parlante",
-    descripcion: "Parlante Bluetooth portátil",
-    precio: 120,
-    imagen: "🔊",
+    nombre: "kit electronica",
+    descripcion: "kit de componentes electrónicos",
+    precio: 1800,
+    imagen: "./img/kitComponentes.webp",
   },
 ];
 
@@ -126,7 +126,6 @@ const formulario = document.getElementById("formulario");
 formulario.addEventListener("submit", tomarDatosForm);
 
 function tomarDatosForm(e) {
-  // Previene la acción por defecto del formulario que es refrescar la página al enviarse
   e.preventDefault();
 
   let inputBuscar = e.target[0].value;
@@ -137,3 +136,24 @@ function tomarDatosForm(e) {
 
   imprimirElementosEnHTML(productosFiltrados);
 }
+
+function obtenerProductoDelForm() {
+  const formParaProducto = document.getElementById("form-agregar-producto");
+  formParaProducto.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const inputNombre = document.getElementById("input-nombre").value;
+
+    const inputPrecio = document.getElementById("input-precio").value;
+
+    const inputImagen = document.getElementById("input-imagen").value;
+
+    const inputDescripcion = document.getElementById(input-descripcion).value;
+
+    productos.push({nombre: inputNombre, precio: inputPrecio, imagen: inputImagen, descripcion: inputDescripcion});
+
+    imprimirElementosEnHTML();
+  });
+}
+
+obtenerProductoDelForm();
