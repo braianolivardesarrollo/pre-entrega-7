@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="./js/main.js" defer></script>
+  </head>
+
+  <body>
+    <header>
+      <h1 id="titulo">Mi comercio online</h1>
+      <nav>
+        <ul>
+          <li><a href="#" class="link">Inicio</a></li>
+          <li><a href="#productos" class="link">Productos</a></li>
+          <li><a href="./pages/carrito.html" class="link">Carrito</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h2>Productos</h2>
+      <form id="formulario">
+        <input type="text" placeholder="Buscar..." />
+        <input type="submit" value="Buscar" />
+      </form>
+      <button id="btn">Click aquí</button>
+      <!-- En este section se imprimen los productos -->
+      <section id="productos" class="productos"></section>
+
+      <section id="carrito"></section>
+    </main>
+    <footer>
+      <span>&copy;2026</span>
+    </footer>
+  </body>
+</html>
