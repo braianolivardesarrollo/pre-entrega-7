@@ -66,12 +66,12 @@ const productos = [
 const carrito = [];
 
 
-function imprimirElementosEnHTML(productos) {
+function imprimirElementosEnHTML(listaProductos) {
   const productosDOM = document.getElementById("productos");
 
   productosDOM.innerHTML = "";
 
-  for (const producto of productos) {
+  for (const producto of listaProductos) {
     const card = document.createElement("div");
     card.className = "card";
 
@@ -79,25 +79,47 @@ function imprimirElementosEnHTML(productos) {
     <img src="${producto.imagen}" alt="${producto.nombre}">
     <h3>${producto.nombre}</h3>
     <p>${producto.descripcion}</p>
-    <p>${producto.precio}</p>
-    <button class="card-boton" id="${producto.nombre}${producto.id}">Comprar</button>
+    <p>$${producto.precio}</p>
+    <button class="card-boton" id="comprar${producto.id}">Comprar</button>
+    <button class="card-boton" id="eliminar${producto.id}">Eliminar</button>
     `;
 
     productosDOM.appendChild(card);
 
-    const btnComprar = document.getElementById(
-      `${producto.nombre}${producto.id}`,
-    );
+    const btnComprar = document.getElementById(`comprar${producto.id}`);
 
-    btnComprar.addEventListener("click", () =>
-      agregarProductoAlCarrito(producto),
-    );
+    btnComprar.addEventListener("click", () => {
+
+      agregarProductoAlCarrito(producto);
+   } );
+
+   const btnEliminar = document.getElementById(`eliminar${producto.id}`);
+
+btnEliminar.addEventListener("click", () => {
+  productos.splice(productos.indexOf(producto), 1);
+
+  imprimirElementosEnHTML(productos);
+
+const mensajeCarrito = document.getElementById("mensaje-carrito");
+
+ mensajeCarrito.textContent = `Producto "${producto.nombre}" eliminado correctamente`;
+
+  setTimeout(() => { mensajeCarrito.textContent = ""; }, 2000);
+
+});
   }
 }
 
 function agregarProductoAlCarrito(producto) {
+
   carrito.push(producto);
-  alert(`Agregaste ${producto.nombre} al carrito`);
+  const mensajeCarrito = document.getElementById("mensaje-carrito");
+ 
+  mensajeCarrito.textContent = `Agregaste ${producto.nombre} al carrito`;
+
+  setTimeout(() => {
+    mensajeCarrito.textContent = ""
+  }, 2000 )
 
   imprimirCarritoEnHTML();
 }
@@ -109,13 +131,41 @@ function imprimirCarritoEnHTML() {
 
   const ul = document.createElement("ul");
 
+  let total = 0;
+
   for (const producto of carrito) {
     ul.innerHTML += `
       <li>${producto.nombre}: $${producto.precio}</li>
     `;
+
+     total += Number(producto.precio);
   }
 
   contenedorCarrito.appendChild(ul);
+
+  const precioTotal = document.createElement("p");
+  precioTotal.textContent = `Total: $${total}`;
+
+  contenedorCarrito.appendChild(precioTotal);
+
+  const botonComprarCarrito = document.createElement("button");
+
+botonComprarCarrito.textContent = "Comprar carrito";
+
+contenedorCarrito.appendChild(botonComprarCarrito);
+
+botonComprarCarrito.addEventListener("click", () => {
+  carrito.length = 0;
+  imprimirCarritoEnHTML();
+
+  const mensajeCarrito = document.getElementById("mensaje-carrito");
+
+  mensajeCarrito.textContent = "Compra realizada correctamente";
+
+  setTimeout(() => {
+    mensajeCarrito.textContent = "";
+  }, 2000);
+});
 }
 
 imprimirElementosEnHTML(productos);
@@ -124,17 +174,20 @@ const formulario = document.getElementById("formulario");
 
 formulario.addEventListener("submit", tomarDatosForm);
 
+const inputBusqueda = document.querySelector("#formulario input[type='text']");
+
+inputBusqueda.addEventListener("keyup", tomarDatosForm);
+
 function tomarDatosForm(e) {
-  e.preventDefault();
-
-  let inputBuscar = e.target[0].value;
-
-  let productosFiltrados = productos.filter((elemento) =>
-    elemento.nombre.toLowerCase().includes(inputBuscar.toLowerCase()),
-  );
-
-  imprimirElementosEnHTML(productosFiltrados);
-}
+   e.preventDefault();
+   
+   let inputBuscar = document.querySelector("#formulario input[type='text']").value;
+   
+   let productosFiltrados = productos.filter((elemento) =>
+     elemento.nombre.toLowerCase().includes(inputBuscar.toLowerCase()),
+   ); 
+   imprimirElementosEnHTML(productosFiltrados);
+   }
 
 function obtenerProductoDelForm() {
   const formParaProducto = document.getElementById("form-agregar-producto");
@@ -152,6 +205,14 @@ function obtenerProductoDelForm() {
     productos.push({id: productos.length +1, nombre: inputNombre, precio: inputPrecio, imagen: inputImagen, descripcion: inputDescripcion});
 
     imprimirElementosEnHTML(productos);
+
+    const mensajeCarrito = document.getElementById("mensaje-carrito");
+     mensajeCarrito.textContent = `Producto "${inputNombre}" agregado correctamente al stock`;
+      setTimeout(() => { mensajeCarrito.textContent = "";
+       },
+        2000);
+
+    formParaProducto.reset()
   });
 }
 
